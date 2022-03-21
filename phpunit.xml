@@ -43,5 +43,7 @@
         <server name="QUEUE_CONNECTION" value="sync"/>
         <server name="SESSION_DRIVER" value="array"/>
         <env name="DB_CONNECTION" value="testing_sqlite"/>
+        <env name="REDIS_DB" value="2"/>
+        <env name="REDIS_CACHE_DB" value="2"/>
     </php>
 </phpunit>

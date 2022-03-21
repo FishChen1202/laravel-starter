@@ -1,0 +1,23 @@
+{
+    "name": "onramplab/hopper",
+    "description": "",
+    "authors": [
+        {
+            "name": "Onramplab",
+            "email": "dev@onramplab.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Hopper\\": ""
+        }
+    }
+}

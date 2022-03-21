@@ -1,0 +1,13 @@
+{
+    "name": "Hopper",
+    "alias": "hopper",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Hopper\\Providers\\HopperServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

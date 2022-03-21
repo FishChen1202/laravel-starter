@@ -1,5 +1,6 @@
 {
     "Core": true,
     "Account": true,
-    "Auth": true
+    "Auth": true,
+    "Hopper": true
 }

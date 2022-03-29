@@ -18,11 +18,6 @@ class Hopper
         return "neo:outbound-call-hopper-timestamp:campaign-{$campaignId}";
     }
 
-    public function getRaisedWithinThreeMinutesLeadKey(int $campaignId, int $leadId): string
-    {
-        return "neo:outbound-call-hopper-raised-within-three-minutes:campaign-{$campaignId}-lead-{$leadId}";
-    }
-
     public function refillLeads(Campaign $campaign, array $leads): void
     {
         # TODO:
@@ -35,13 +30,13 @@ class Hopper
 
     private function setExpire(string $key, int $expireSeconds = 60 * 60 * 24): void
     {
-        /** @phpstan-ignore-next-line  */
+        /** @phpstan-ignore-next-line */
         Redis::expire($key, $expireSeconds);
     }
 
     public function reset(string $key): void
     {
-        /** @phpstan-ignore-next-line  */
+        /** @phpstan-ignore-next-line */
         Redis::del($key);
     }
 
@@ -49,35 +44,20 @@ class Hopper
     {
         # TODO:
 
-        $leadIds = [];
-        $this->markLeadsRaisedWithinThreeMinutes($campaign, $leadIds);
-
-        return $leadIds;
-    }
-
-    public function markLeadsRaisedWithinThreeMinutes(Campaign $campaign, array $leadIds): void
-    {
-        # TODO:
-
-    }
-
-    public function checkLeadIsRaisedWithinThreeMinutes(Campaign $campaign, int $leadId): bool
-    {
-        # TODO:
-        return true;
+        return [];
     }
 
     public function getLeadsCountInHopper(Campaign $campaign): int
     {
-        $hopperKey = $this->getHopperKey($campaign->id);
-        /** @phpstan-ignore-next-line  */
-        return Redis::zcard($hopperKey);
+        # TODO:
+
+        return 1;
     }
 
-    public function getLastRefillTimestamp(Campaign $campaign): Carbon | null
+    public function getLastRefillTimestamp(Campaign $campaign): Carbon|null
     {
         $timestampKey = $this->getLastRefillTimestampKey($campaign->id);
-        /** @phpstan-ignore-next-line  */
+        /** @phpstan-ignore-next-line */
         $lastRefillTimestamp = Redis::get($timestampKey);
         if (!$lastRefillTimestamp) {
             return null;
@@ -87,7 +67,7 @@ class Hopper
 
     public function setLastRefillTimestamp(string $key): void
     {
-        /** @phpstan-ignore-next-line  */
+        /** @phpstan-ignore-next-line */
         Redis::set($key, Carbon::now()->toDateTimeString());
     }
 

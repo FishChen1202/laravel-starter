@@ -18,12 +18,13 @@ class Hopper implements baseHopper
         return "neo:outbound-call-hopper-timestamp:campaign-{$campaignId}";
     }
 
-    public function refillLeads(Campaign $campaign, array $leads): void
+    public function refillLeads(Campaign $campaign, array $leadsWithScore): void
     {
-        # TODO:
+        $this->clearAll($campaign);
+        $this->addLeads($campaign, $leadsWithScore);
     }
 
-    public function addLeads(Campaign $campaign, array $leads): void
+    public function addLeads(Campaign $campaign, array $leadsWithScore): void
     {
         # TODO:
     }

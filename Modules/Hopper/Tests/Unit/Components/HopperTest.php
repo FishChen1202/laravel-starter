@@ -104,16 +104,16 @@ class HopperTest extends TestCase
     }
 
     /**
-     * Test getCallableLeads()
+     * Test getLeads()
      * @test
      * @dataProvider data_provider_for_test_get_callable_leads
      *
      * @return void
      */
-    public function getCallableLeads(Closure $prepareData, Closure $asserts): void
+    public function getLeads(Closure $prepareData, Closure $asserts): void
     {
         $leadCount = Closure::bind($prepareData, $this)();
-        $leadIds = $this->hopper->getCallableLeads($this->campaign, $leadCount);
+        $leadIds = $this->hopper->getLeads($this->campaign, $leadCount);
         Closure::bind($asserts, $this)($leadIds);
     }
 

@@ -2,11 +2,11 @@
 
 namespace Modules\Hopper\Components;
 
-use Carbon\Carbon;
 use Redis;
 use Modules\Hopper\Entities\Campaign;
+use \Modules\Hopper\Contracts\Hopper as baseHopper;
 
-class Hopper
+class Hopper implements baseHopper
 {
     public function getHopperKey(int $campaignId): string
     {
@@ -40,7 +40,7 @@ class Hopper
         Redis::del($key);
     }
 
-    public function getCallableLeads(Campaign $campaign, int $leadsCountForCall): array
+    public function getLeads(Campaign $campaign, int $leadsCountForCall): array
     {
         # TODO:
 
@@ -54,23 +54,6 @@ class Hopper
         return 1;
     }
 
-    public function getLastRefillTimestamp(Campaign $campaign): Carbon|null
-    {
-        $timestampKey = $this->getLastRefillTimestampKey($campaign->id);
-        /** @phpstan-ignore-next-line */
-        $lastRefillTimestamp = Redis::get($timestampKey);
-        if (!$lastRefillTimestamp) {
-            return null;
-        }
-        return Carbon::parse($lastRefillTimestamp);
-    }
-
-    public function setLastRefillTimestamp(string $key): void
-    {
-        /** @phpstan-ignore-next-line */
-        Redis::set($key, Carbon::now()->toDateTimeString());
-    }
-
     public function clearAll(Campaign $campaign): void
     {
         $hopperKey = $this->getHopperKey($campaign->id);
@@ -79,17 +62,4 @@ class Hopper
         $this->reset($timestampKey);
     }
 
-    public function isNeedRefilled(Campaign $campaign, Carbon $time): bool
-    {
-        $lastRefillTimestamp = $this->getLastRefillTimestamp($campaign);
-
-        if (!$lastRefillTimestamp) {
-            return true;
-        }
-
-        $nowAfterOneMinute = $time->addMinute();
-        $lastRefillTimestampAfterOneMinute = $lastRefillTimestamp->addMinute();
-
-        return !($nowAfterOneMinute->startOfHour() == $lastRefillTimestampAfterOneMinute->startOfHour());
-    }
 }

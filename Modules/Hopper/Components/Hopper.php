@@ -13,11 +13,6 @@ class Hopper implements baseHopper
         return "neo:outbound-call-hopper:campaign-{$campaignId}";
     }
 
-    public function getLastRefillTimestampKey(int $campaignId): string
-    {
-        return "neo:outbound-call-hopper-timestamp:campaign-{$campaignId}";
-    }
-
     public function refillLeads(Campaign $campaign, array $leadsWithScore): void
     {
         $this->clearAll($campaign);
@@ -58,9 +53,7 @@ class Hopper implements baseHopper
     public function clearAll(Campaign $campaign): void
     {
         $hopperKey = $this->getHopperKey($campaign->id);
-        $timestampKey = $this->getLastRefillTimestampKey($campaign->id);
         $this->reset($hopperKey);
-        $this->reset($timestampKey);
     }
 
 }
